@@ -1,12 +1,21 @@
+import { useEffect, useState } from "react";
+
 function showDateTime() {
-  let dateObj = new Date();
+  const [secondState, setSecondState] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSecondState(new Date());
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="timeDate">
       <p>
-        This is current Time : {dateObj.getDate()}/{dateObj.getMonth()}/
-        {dateObj.getFullYear()} - {dateObj.getHours()}:{dateObj.getMinutes()}:
-        {dateObj.getSeconds()}
+        This is current Time : {secondState.toDateString()} | {secondState.toTimeString()}
       </p>
     </div>
   );
